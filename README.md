@@ -5,7 +5,7 @@ Stay App is a simple web application to create, read, update, and delete notes. 
 
 ## Preview
 
-![Stay App Preview](https://i.ibb.co/4w5thJkR/Sin-t-tulo-2025-08-20-1334.png)
+![Stay App Preview](https://i.ibb.co/m59f42Nz/Sin-t-tulo-2025-08-20-1334.png)
 
 ## Installation
 
