@@ -1,0 +1,39 @@
+.cover-container {
+  position: relative;
+  min-height: 400px;
+  width: 95%;
+  margin: auto;
+  margin-top: 1rem;
+  background-color: black;
+  border-radius: var(--secondary-border-radius);
+}
+
+.cover-image {
+  background-color: var(--primary-bg-color-0);
+  border-radius: var(--secondary-border-radius);
+  object-fit: cover;
+  opacity: 0.35;
+}
+
+.cover-container,
+.cover-image {
+  height: 95vh;
+}
+
+.cover-container :is(.cover-image, figcaption, .btn-group) {
+  position: absolute;
+}
+
+.cover-container figcaption {
+  right: 6vh;
+  top: 6vh;
+  z-index: 1;
+}
+
+.btn-group {
+  bottom: 6vh;
+  left: 6vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

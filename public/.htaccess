@@ -1,0 +1,10 @@
+# ENABLE REWRITE
+RewriteEngine On
+
+# SERVE EXISTING FILES ROUTE: /
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# HANDLE 404
+ErrorDocument 404 /404.php
