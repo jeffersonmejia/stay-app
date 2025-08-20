@@ -16,6 +16,7 @@ Click [here](https://www.docker.com/get-started) to download and install Docker.
 ### 2.2 Clone GitHub repository
 
 `git clone git@github.com:jeffersonmejia/stay-app.git`
+
 `cd stay-app`
 
 ### 2.3 Clone GitHub repository
