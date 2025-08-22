@@ -12,7 +12,14 @@
 
 <body>
     <main>
-        <a href="/" class="secondary-btn">Volver</a>
+        <form action="public/signin.php" method="POST" class="signup-form">
+            <input type="email" name="email" placeholder="Correo electrónico" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+            <div class="btn-group">
+                <button type="submit" class="primary-btn">Ingresar</button>
+                <a href="/" class="secondary-btn">Volver</a>
+            </div>
+        </form>
     </main>
 </body>
 

@@ -1,40 +1,48 @@
 # Stay App
-> Write your notes easily
 
-Stay App is a simple web application to create, read, update, and delete notes. It provides basic authentication and note management linked to user accounts. 
+> Escribe tus notas fácilmente
 
-## 1. Preview
+Stay App es una aplicación web sencilla para crear, leer, actualizar y eliminar notas. Proporciona autenticación básica y gestión de notas vinculadas a las cuentas de usuario.
 
-![Stay App Preview](https://i.ibb.co/m59f42Nz/Sin-t-tulo-2025-08-20-1334.png)
+## 1. Vista previa
 
-## 2. Installation
+![Vista previa de Stay App](https://i.ibb.co/m59f42Nz/Sin-t-tulo-2025-08-20-1334.png)
 
-### 2.1 Download Docker
+## 2. Instalación
 
-Click [here](https://www.docker.com/get-started) to download and install Docker.
+### 2.1 Descargar Docker
 
-### 2.2 Clone GitHub repository
+Haz clic [aquí](https://www.docker.com/get-started) para descargar e instalar Docker.
+
+### 2.2 Clonar el repositorio de GitHub
 
 `git clone git@github.com:jeffersonmejia/stay-app.git`
 
 `cd stay-app`
 
-### 2.3 Clone GitHub repository
-
-`git clone git@github.com:jeffersonmejia/stay-app.git`
-
-`cd stay_app`
-
-### 2.4 Run compose
+### 2.3 Ejecutar Docker Compose
 
 `docker compose app`
 
-### 2.5 Watch container process
+### 2.4 Ver los contenedores en ejecución
 
 `docker ps`
 
-## 3. Database arquitecture
-- Name: `stay_app`  
-- Tables:
-  - `users` (id, username, password)  
-  - `notes` (id, title, description, user_id) 
+## 3. Arquitectura de la base de datos
+
+- Nombre: `stay_app`
+- Tablas:
+  - `users` (id, email, password)
+  - `notes` (id, title, description, user_id)
+
+# Bitácora de actividades
+
+| No. | Actividad                                 | Fecha      |
+| --- | ----------------------------------------- | ---------- |
+| 1   | Inicialización de repositorio git, github | 2025-08-20 |
+| 2   | Configuración de Docker, Docker Compose   | 2025-08-20 |
+| 3   | Diseño de base de datos: users, notes     | 2025-08-21 |
+| 4   | Implementación de registro usuarios       | 2025-08-22 |
+| 5   | Implementación de ingreso usuarios        | 2025-08-22 |
+| 6   | Implementación de CRUD de notas           | 2025-08-23 |
+| 7   | Pruebas locales y ajustes de seguridad    | 2025-08-25 |
