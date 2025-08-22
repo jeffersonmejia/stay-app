@@ -35,14 +35,18 @@ Haz clic [aquí](https://www.docker.com/get-started) para descargar e instalar D
   - `users` (id, email, password)
   - `notes` (id, title, description, user_id)
 
-# Bitácora de actividades
+# 4. Bitácora de actividades
 
-| No. | Actividad                                 | Fecha      |
-| --- | ----------------------------------------- | ---------- |
-| 1   | Inicialización de repositorio git, github | 2025-08-20 |
-| 2   | Configuración de Docker, Docker Compose   | 2025-08-20 |
-| 3   | Diseño de base de datos: users, notes     | 2025-08-21 |
-| 4   | Implementación de registro usuarios       | 2025-08-22 |
-| 5   | Implementación de ingreso usuarios        | 2025-08-22 |
-| 6   | Implementación de CRUD de notas           | 2025-08-23 |
-| 7   | Pruebas locales y ajustes de seguridad    | 2025-08-25 |
+| No. | Actividad                                   | Fecha      |
+| --- | ------------------------------------------- | ---------- |
+| 1   | Inicialización de _repositorio_ git, github | 2025-08-20 |
+| 2   | Configuración de _Docker_, Docker Compose   | 2025-08-20 |
+| 3   | Diseño de _base de datos_: users, notes     | 2025-08-21 |
+| 4   | Implementación de _registro_ usuarios       | 2025-08-22 |
+| 5   | Implementación de _ingreso_ usuarios        | 2025-08-22 |
+| 6   | Implementación de _CRUD_ de notas           | 2025-08-23 |
+| 7   | _Pruebas_ locales y ajustes de seguridad    | 2025-08-25 |
+
+# 4. Autor
+
+[Jefferson Mejía](https://jeffersonmejia.github.io/portfolio-app), Ing. Tecnologías de la Información
