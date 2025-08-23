@@ -42,6 +42,7 @@ Haz clic [aquí](https://www.docker.com/get-started) para descargar e instalar D
 # 5. Bitácora de actividades
 
 *Fecha de inicio*:  2025-08-20
+
 *Fecha esperada de finalización*:  2025-08-27
 
 | No. | Categoría        | Actividad                                        | Fecha      |
