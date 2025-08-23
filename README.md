@@ -4,38 +4,42 @@
 
 Stay App es una aplicación web sencilla para crear, leer, actualizar y eliminar notas. Proporciona autenticación básica y gestión de notas vinculadas a las cuentas de usuario.
 
-## 1. Vista previa
+## 1. Preview
+
+![Vista previa](https://i.ibb.co/zVL5GfMx/Facebook-cover-Restaurante-Elegante-Minimal-Verde-removebg-preview-1.png)
+
+## 2. Bosquejo de arquitectura
 
 ![Vista previa de Stay App](https://i.ibb.co/m59f42Nz/Sin-t-tulo-2025-08-20-1334.png)
 
-## 2. Instalación
+## 3. Instalación
 
-### 2.1 Descargar Docker
+### 3.1 Descargar Docker
 
 Haz clic [aquí](https://www.docker.com/get-started) para descargar e instalar Docker.
 
-### 2.2 Clonar el repositorio de GitHub
+### 3.2 Clonar el repositorio de GitHub
 
 `git clone git@github.com:jeffersonmejia/stay-app.git`
 
 `cd stay-app`
 
-### 2.3 Ejecutar Docker Compose
+### 3.3 Ejecutar Docker Compose
 
 `docker compose app`
 
-### 2.4 Ver los contenedores en ejecución
+### 3.4 Ver los contenedores en ejecución
 
 `docker ps`
 
-## 3. Arquitectura de la base de datos
+## 4. Arquitectura de la base de datos
 
 - Nombre: `stay_app`
 - Tablas:
   - `users` (id, email, password)
   - `notes` (id, title, description, user_id)
 
-# 4. Bitácora de actividades
+# 5. Bitácora de actividades
 
 | No. | Actividad                                   | Fecha      |
 | --- | ------------------------------------------- | ---------- |
@@ -47,6 +51,6 @@ Haz clic [aquí](https://www.docker.com/get-started) para descargar e instalar D
 | 6   | Implementación de _CRUD_ de notas           | 2025-08-23 |
 | 7   | _Pruebas_ locales y ajustes de seguridad    | 2025-08-25 |
 
-# 4. Autor
+# 6. Autor
 
 [Jefferson Mejía](https://jeffersonmejia.github.io/portfolio-app), Ing. Tecnologías de la Información
