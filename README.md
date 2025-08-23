@@ -45,6 +45,8 @@ Haz clic [aquí](https://www.docker.com/get-started) para descargar e instalar D
 
 *Fecha esperada de finalización*:  2025-08-27
 
+*Tiempo esperado de finalización*:  8 días
+
 | No. | Categoría        | Actividad                                        | Fecha      |
 | --- | ---------------- | ------------------------------------------------ | ---------- |
 |  1  | Control de versiones | Inicialización de _repositorio_ git, GitHub     | 2025-08-20 |
