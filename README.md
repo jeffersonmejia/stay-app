@@ -8,38 +8,51 @@ Stay App es una aplicación web sencilla para crear, leer, actualizar y eliminar
 
 ![Vista previa](https://i.ibb.co/zVL5GfMx/Facebook-cover-Restaurante-Elegante-Minimal-Verde-removebg-preview-1.png)
 
-## 2. Bosquejo de arquitectura
+## 2. Requisitos funcionales
+
+- Docker como sistema de contenedores.
+- Servidor web apache.
+- PHP como lenguaje de programación para manipular las rutas y recursos del servidor web apache.
+- Sistema de registro e ingreso con sesiones.
+- Servidor de base de datos MySQL que almacene usuarios y notas.
+- Servidor FTP que almacene archivos adjuntos de las notas almacenadas del usuario.
+
+## 3. Requisitos no funcionales
+
+> Aplicación que permita al usuario registrarse con un correo electrónico y clave, asimismo pueda ingresar a la aplicación con dichas credenciales y escribir notas y adjuntar archivos en las mismas.
+
+## 4. Bosquejo de arquitectura
 
 ![Vista previa de Stay App](https://i.ibb.co/m59f42Nz/Sin-t-tulo-2025-08-20-1334.png)
 
-## 3. Instalación
+## 5. Instalación
 
-### 3.1 Descargar Docker
+### 5.1 Descargar Docker
 
 Haz clic [aquí](https://www.docker.com/get-started) para descargar e instalar Docker.
 
-### 3.2 Clonar el repositorio de GitHub
+### 5.2 Clonar el repositorio de GitHub
 
 `git clone git@github.com:jeffersonmejia/stay-app.git`
 
 `cd stay-app`
 
-### 3.3 Ejecutar Docker Compose
+### 5.3 Ejecutar Docker Compose
 
 `docker compose app`
 
-### 3.4 Ver los contenedores en ejecución
+### 5.4 Ver los contenedores en ejecución
 
 `docker ps`
 
-## 4. Arquitectura de la base de datos
+## 6. Arquitectura de la base de datos
 
 - Nombre: `stay_app`
 - Tablas:
   - `users` (id, email, password)
   - `notes` (id, title, description, user_id)
 
-# 5. Bitácora de actividades
+# 7. Bitácora de actividades
 
 *Fecha de inicio*:  2025-08-20
 
@@ -60,6 +73,6 @@ Haz clic [aquí](https://www.docker.com/get-started) para descargar e instalar D
 |  9  | Backend          | Implementación de _CRUD_ de notas              | 2025-08-25 |
 | 10  | Testing          | _Pruebas_ locales y ajustes de seguridad      | 2025-08-26 |
 
-# 6. Autor
+# 7. Autor
 
 [Jefferson Mejía](https://jeffersonmejia.github.io/portfolio-app), Ing. Tecnologías de Información y Comunicación
