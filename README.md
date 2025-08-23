@@ -41,15 +41,19 @@ Haz clic [aquí](https://www.docker.com/get-started) para descargar e instalar D
 
 # 5. Bitácora de actividades
 
-| No. | Actividad                                   | Fecha      |
-| --- | ------------------------------------------- | ---------- |
-| 1   | Inicialización de _repositorio_ git, github | 2025-08-20 |
-| 2   | Configuración de _Docker_, Docker Compose   | 2025-08-20 |
-| 3   | Diseño de _base de datos_: users, notes     | 2025-08-21 |
-| 4   | Implementación de _registro_ usuarios       | 2025-08-22 |
-| 5   | Implementación de _ingreso_ usuarios        | 2025-08-22 |
-| 6   | Implementación de _CRUD_ de notas           | 2025-08-23 |
-| 7   | _Pruebas_ locales y ajustes de seguridad    | 2025-08-25 |
+| No. | Actividad                                        | Fecha      |
+| --- | ------------------------------------------------ | ---------- |
+|  1  | Inicialización de _repositorio_ git, GitHub     | 2025-08-20 |
+|  2  | Configuración de _Docker_ y Docker Compose      | 2025-08-20 |
+|  3  | Configuración de servidor Apache                | 2025-08-21 |
+|  4  | Configuración de servidor MySQL                 | 2025-08-21 |
+|  5  | Configuración de servidor de archivos FTP       | 2025-08-22 |
+|  6  | Diseño de _base de datos_: users, notes        | 2025-08-23 |
+|  7  | Implementación de _registro_ usuarios /signup.php | 2025-08-24 |
+|  8  | Implementación de _ingreso_ usuarios /signin.php  | 2025-08-24 |
+|  9  | Implementación de _CRUD_ de notas              | 2025-08-25 |
+| 10  | _Pruebas_ locales y ajustes de seguridad      | 2025-08-26 |
+
 
 # 6. Autor
 
