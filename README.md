@@ -62,4 +62,4 @@ Haz clic [aquí](https://www.docker.com/get-started) para descargar e instalar D
 
 # 6. Autor
 
-[Jefferson Mejía](https://jeffersonmejia.github.io/portfolio-app), Ing. Tecnologías de la Información
+[Jefferson Mejía](https://jeffersonmejia.github.io/portfolio-app), Ing. Tecnologías de Información y Comunicación
