@@ -32,7 +32,7 @@ Stay App es una aplicación web sencilla para crear, leer, actualizar y eliminar
   - `users` (id, email, password)
   - `notes` (id, title, description, user_id)
 
-# 6. Bitácora de actividades
+## 6. Bitácora de actividades
 
 *Fecha de inicio*:  2025-08-20
 
@@ -53,7 +53,7 @@ Stay App es una aplicación web sencilla para crear, leer, actualizar y eliminar
 |  9  | Backend          | Implementación de _CRUD_ de notas              | 2025-08-25 |
 | 10  | Testing          | _Pruebas_ locales y ajustes de seguridad      | 2025-08-26 |
 
-# 7. Instalación
+## 7. Instalación
 
 ### 7.1 Descargar Docker
 
@@ -73,6 +73,6 @@ Haz clic [aquí](https://www.docker.com/get-started) para descargar e instalar D
 
 `docker ps`
 
-# 8. Autor
+## 8. Autor
 
 [Jefferson Mejía](https://jeffersonmejia.github.io/portfolio-app), Ing. Tecnologías de Información y Comunicación
