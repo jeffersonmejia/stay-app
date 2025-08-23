@@ -12,31 +12,44 @@
 
 <body>
     <main>
-        <?php include "../server/db.php";
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        <?php
+        //AGREGA CONEXIÓN DB
+        include "../server/db/db.php";
+        $message = "";
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($conn)) {
             $email = $_POST["email"];
             $password = $_POST["password"];
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-            //POSIBLE INYECCIÓN MYSQL, REVISAR
-            $query = "INSERT INTO users (email, password) VALUES ('$email', '$hashed_password')";
-            if (mysqli_query($conn, $query)) {
-                echo "Usuario registrado exitosamente.";
-            } else {
-                echo "Error: " . mysqli_error($conn);
+            try {
+                $check = $conn->query("SELECT COUNT(*) FROM users WHERE email='$email'")->fetchColumn();
+                if ($check > 0) {
+                    $message = "El usuario ya existe con este correo.";
+                } else {
+                    $conn->exec("INSERT INTO users (email, password) VALUES ('$email', '$hashed_password')");
+                    $message = "Usuario registrado exitosamente.";
+                }
+            } catch (Exception $e) {
+                $message = "No se pudo registrar al usuario, intenta más tarde.";
+                error_log($e->getMessage());
             }
-        } else {
-        ?>
-            <form action="signup.php" method="POST" class="signup-form">
-                <input type="email" name="email" placeholder="Correo electrónico" required>
-                <input type="password" name="password" placeholder="Contraseña" required>
-                <div class="btn-group">
-                    <button type="submit" class="primary-btn">Registrarse</button>
-                    <a href="/" class="secondary-btn">Volver</a>
-                </div>
-            </form>
-        <?php
         }
         ?>
+        <form action="signup.php" method="POST" class="signup-form">
+            <fieldset>
+                <legend>
+                    <h1>
+                        Registro de Usuario
+                    </h1>
+                </legend>
+                <input type="email" name="email" placeholder="Correo electrónico" required>
+                <input type="password" name="password" placeholder="Contraseña" required>
+                <?php if ($message) echo "<small>$message</small>"; ?>
+                <div class="btn-group">
+                    <a href="/" class="primary-btn">Volver</a>
+                    <button type="submit" class="secondary-btn">Registrarse</button>
+                </div>
+            </fieldset>
+        </form>
     </main>
 </body>
 

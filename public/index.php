@@ -16,17 +16,16 @@
             <figure class="cover-container">
                 <img src="assets/img/home_cover.png" alt="cover" class="cover-image">
                 <figcaption>
-                    <h2>Welcome to Stay App</h2>
-                    <p>Your one-stop solution for all your stay needs.</p>
+                    <h2>Bienvenido a Stay App</h2>
+                    <p>Tu solución integral para todas tus necesidades de alojamiento.</p>
                 </figcaption>
                 <div class="btn-group">
-                    <a href="signup.php" class="primary-btn">Sign up</a>
-                    <a href="signin.php" class="secondary-btn">Sign in</a>
+                    <a href="signup.php" class="primary-btn">Registrarse</a>
+                    <a href="signin.php" class="secondary-btn">Iniciar sesión</a>
                 </div>
             </figure>
         </header>
     </main>
-    <!-- <?php include '../server/db.php'; ?> -->
 </body>
 
 </html>

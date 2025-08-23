@@ -4,3 +4,37 @@ main {
   justify-content: center;
   height: 95vh;
 }
+
+form {
+  width: 95%;
+  max-width: 450px;
+  /* background-color: rgb(32, 32, 32); */
+  padding: 2rem;
+  border-radius: 24px;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+legend {
+  padding-bottom: 1.5rem;
+}
+.btn-group {
+  margin-top: 1rem;
+}
+
+.primary-btn {
+  padding: 0;
+  background-color: transparent;
+  text-align: left;
+  width: fit-content;
+  font-weight: 400;
+  height: fit-content;
+}
+
+.primary-btn:hover {
+  background-color: black;
+  color: rgb(221, 221, 221);
+}

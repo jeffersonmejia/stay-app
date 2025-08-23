@@ -11,7 +11,7 @@
 
 <body>
     <main>
-        <a href="" class="secondary-btn">Salir</a>
+        <a href="logout.php" class="secondary-btn">Salir</a>
     </main>
 </body>
 
