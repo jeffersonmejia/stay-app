@@ -2,7 +2,7 @@
 
 > Escribe tus notas fácilmente
 
-Stay App es una aplicación web sencilla para crear, leer, actualizar y eliminar notas. Proporciona autenticación básica y gestión de notas vinculadas a las cuentas de usuario.
+Stay App es una aplicación web sencilla para crear, leer, actualizar y eliminar notas. Proporciona autenticación básica y gestión de notas vinculadas a las cuentas de usuario. Se emplea el uso de Docker (MySQL, Apache2, FTP) para aislar servicios y brindar robustes en la seguridad del aplicativo.
 
 ## 1. Preview
 
