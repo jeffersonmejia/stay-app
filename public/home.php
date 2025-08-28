@@ -15,4 +15,17 @@ if (isset($_GET['css'])) {
         exit;
     }
 }
+
+if (isset($_GET['js'])) {
+    $file = realpath(__DIR__ . '/../server/protected/js/' . basename($_GET['js']));
+    if ($file && file_exists($file)) {
+        header("Content-Type: application/javascript");
+        readfile($file);
+        exit;
+    } else {
+        http_response_code(404);
+        exit;
+    }
+}
+
 include "../server/protected/home.php";

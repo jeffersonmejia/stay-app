@@ -34,24 +34,24 @@ Stay App es una aplicación web sencilla para crear, leer, actualizar y eliminar
 
 ## 6. Bitácora de actividades
 
-*Fecha de inicio*:  2025-08-20
+_Fecha de inicio_: 2025-08-20
 
-*Fecha esperada de finalización*:  2025-08-27
+_Fecha esperada de finalización_: 2025-08-27
 
-*Tiempo esperado de finalización*:  8 días
+_Tiempo esperado de finalización_: 8 días
 
-| No. | Categoría        | Actividad                                        | Fecha      |
-| --- | ---------------- | ------------------------------------------------ | ---------- |
-|  1  | Control de versiones | Inicialización de _repositorio_ git, GitHub     | 2025-08-20 |
-|  2  | Contenedores     | Configuración de _Docker_ y Docker Compose      | 2025-08-20 |
-|  3  | Backend          | Configuración de servidor Apache                | 2025-08-21 |
-|  4  | DB               | Configuración de servidor MySQL                 | 2025-08-21 |
-|  5  | Backend          | Configuración de servidor de archivos FTP       | 2025-08-22 |
-|  6  | DB               | Diseño de _base de datos_: users, notes        | 2025-08-23 |
-|  7  | Backend          | Implementación de _registro_ usuarios /signup.php | 2025-08-24 |
-|  8  | Backend          | Implementación de _ingreso_ usuarios /signin.php  | 2025-08-24 |
-|  9  | Backend          | Implementación de _CRUD_ de notas              | 2025-08-25 |
-| 10  | Testing          | _Pruebas_ locales y ajustes de seguridad      | 2025-08-26 |
+| No. | Categoría            | Actividad                                         | Fecha      |
+| --- | -------------------- | ------------------------------------------------- | ---------- |
+| 1   | Control de versiones | Inicialización de _repositorio_ git, GitHub       | 2025-08-20 |
+| 2   | Contenedores         | Configuración de _Docker_ y Docker Compose        | 2025-08-20 |
+| 3   | Backend              | Configuración de servidor Apache                  | 2025-08-21 |
+| 4   | DB                   | Configuración de servidor MySQL                   | 2025-08-21 |
+| 5   | Backend              | Configuración de servidor de archivos FTP         | 2025-08-22 |
+| 6   | DB                   | Diseño de _base de datos_: users, notes           | 2025-08-23 |
+| 7   | Backend              | Implementación de _registro_ usuarios /signup.php | 2025-08-24 |
+| 8   | Backend              | Implementación de _ingreso_ usuarios /signin.php  | 2025-08-24 |
+| 9   | Backend              | Implementación de _CRUD_ de notas                 | 2025-08-25 |
+| 10  | Testing              | _Pruebas_ locales y ajustes de seguridad          | 2025-08-26 |
 
 ## 7. Instalación
 
@@ -67,7 +67,7 @@ Haz clic [aquí](https://www.docker.com/get-started) para descargar e instalar D
 
 ### 7.3 Ejecutar Docker Compose
 
-`docker compose app`
+`docker compose up`
 
 ### 7.4 Ver los contenedores en ejecución
 

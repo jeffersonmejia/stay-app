@@ -1,78 +1,103 @@
 :root {
-  --primary-bg-color-0: rgb(0, 0, 0);
-  --primary-bg-color-50: rgb(16, 16, 16);
-  --primary-bg-color-100: rgb(32, 32, 32);
-  --primary-bg-color-200: rgb(64, 64, 64);
-  --primary-bg-color-300: rgb(128, 128, 128);
-  --primary-bg-color-400: rgb(192, 192, 192);
-  --primary-bg-color-500: rgb(255, 255, 255);
-  --primary-text-color: rgb(0, 0, 0);
-  --primary-border-radius: 4px;
-  --secondary-border-radius: 40px;
+	--primary-bg-color-0: rgb(0, 0, 0);
+	--primary-bg-color-50: rgb(16, 16, 16);
+	--primary-bg-color-100: rgb(32, 32, 32);
+	--primary-bg-color-200: rgb(64, 64, 64);
+	--primary-bg-color-300: rgb(128, 128, 128);
+	--primary-bg-color-400: rgb(192, 192, 192);
+	--primary-bg-color-500: rgb(255, 255, 255);
+	--primary-text-color: rgb(0, 0, 0);
+	--primary-border-radius: 4px;
+	--secondary-border-radius: 40px;
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 img {
-  width: 100%;
+	width: 100%;
 }
 
 button {
-  border: none;
+	border: none;
 }
 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  background-color: var(--primary-bg-color-0);
-  color: white;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+		Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	background-color: var(--primary-bg-color-0);
+	color: white;
 }
 
 fieldset {
-  border: none;
+	border: none;
 }
 
 .primary-btn,
-.secondary-btn {
-  text-decoration: none;
-  width: 100px;
-  padding: 0.5rem 1rem;
-  text-align: center;
-  font-weight: bold;
-  border-radius: var(--primary-border-radius);
-  cursor: pointer;
-  transition: background-color 0.3s ease-in;
+.secondary-btn,
+.tertiary-btn,
+.cancel-btn {
+	text-decoration: none;
+	width: 100px;
+	padding: 0.5rem 1rem;
+	text-align: center;
+	font-weight: bold;
+	border-radius: var(--primary-border-radius);
+	cursor: pointer;
+	transition: background-color 0.3s ease-in;
 }
 
 .primary-btn {
-  background-color: black;
-  color: white;
+	background-color: black;
+	color: white;
 }
 .primary-btn:hover {
-  background-color: rgb(16, 16, 16);
+	background-color: rgb(16, 16, 16);
 }
 
 .secondary-btn {
-  background-color: white;
-  color: black;
+	background-color: white;
+	color: black;
 }
 
 .secondary-btn:hover {
-  background-color: rgb(230, 230, 230);
+	background-color: rgb(230, 230, 230);
 }
 
-input {
-  padding: 0.5rem;
-  border: none;
-  border-radius: 4px;
+.tertiary-btn {
+	background-color: #b1b1ff;
+	color: black;
+}
+
+.tertiary-btn:hover {
+	background-color: rgb(134, 134, 255);
+}
+
+input,
+textarea {
+	padding: 0.5rem;
+	border: none;
+	border-radius: 4px;
+}
+
+input[type='file'] {
+	padding-left: 0;
 }
 
 .btn-group {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.cancel-btn {
+	background-color: rgb(151, 43, 43);
+	color: white;
+}
+
+.cancel-btn:hover {
+	background-color: rgb(126, 36, 36);
 }

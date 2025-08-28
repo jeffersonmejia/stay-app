@@ -2,14 +2,16 @@ services:
   web:
     build: .
     ports:
-      - "8080:80"
+      - '8080:80'
     volumes:
       - ./public:/var/www/html
       - ./server:/var/www/server
       - ./server/scripts/wait-for-it.sh:/wait-for-it.sh:ro
+    develop:
     depends_on:
       - db
-    entrypoint: ["/wait-for-it.sh", "db:3306", "--", "docker-php-entrypoint", "apache2-foreground"]
+    entrypoint:
+      ['/wait-for-it.sh', 'db:3306', '--', 'docker-php-entrypoint', 'apache2-foreground']
 
   db:
     image: mysql:8.0
@@ -19,4 +21,4 @@ services:
       MYSQL_USER: stay_user
       MYSQL_PASSWORD: stay_pass
     ports:
-      - "3306:3306"
+      - '3306:3306'
