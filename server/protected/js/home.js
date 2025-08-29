@@ -1,13 +1,22 @@
 const d = document,
 	$attachBtn = d.getElementById('attach-btn')
 
+function handleCreate(btn) {
+	btn.preventDefault()
+	d.querySelector('.modal-create').classList.remove('hidden')
+}
+
+function handleCancel(btn) {
+	btn.preventDefault()
+	d.querySelector('.modal-create').classList.add('hidden')
+}
+
 d.addEventListener('click', (e) => {
 	if (e.target.matches('.create-btn')) {
-		e.preventDefault()
-		d.querySelector('.modal-create').classList.remove('hidden')
+		handleCreate(e)
 	}
-	if (e.target.matches('.cancel-btn')) {
-		d.querySelector('.modal-create').classList.add('hidden')
+	if (e.target.matches('.modal-create .cancel-btn')) {
+		handleCancel(e)
 	}
 })
 

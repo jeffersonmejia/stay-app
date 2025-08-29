@@ -2,7 +2,7 @@
 FROM php:8.2-apache
 
 # INSTALL EXTENSIONS
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+RUN docker-php-ext-install mysqli pdo pdo_mysql ftp
 
 #COPY FILES AND DIRECTORIES
 COPY ./public/ /var/www/html/

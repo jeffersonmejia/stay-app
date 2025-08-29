@@ -7,11 +7,21 @@ services:
       - ./public:/var/www/html
       - ./server:/var/www/server
       - ./server/scripts/wait-for-it.sh:/wait-for-it.sh:ro
-    develop:
+      - ./ftp:/ftp
     depends_on:
       - db
+      - ftp
     entrypoint:
-      ['/wait-for-it.sh', 'db:3306', '--', 'docker-php-entrypoint', 'apache2-foreground']
+      [
+        '/wait-for-it.sh',
+        'db:3306',
+        '--',
+        '/wait-for-it.sh',
+        'ftp:21',
+        '--',
+        'docker-php-entrypoint',
+        'apache2-foreground',
+      ]
 
   db:
     image: mysql:8.0
@@ -22,3 +32,17 @@ services:
       MYSQL_PASSWORD: stay_pass
     ports:
       - '3306:3306'
+
+  ftp:
+    image: fauria/vsftpd
+    ports:
+      - '21:21'
+      - '21000-21010:21000-21010'
+    environment:
+      FTP_USER: user
+      FTP_PASS: pass
+      PASV_ADDRESS: ftp
+      PASV_MIN_PORT: 21000
+      PASV_MAX_PORT: 21010
+    volumes:
+      - ./ftp:/home/user

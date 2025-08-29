@@ -35,7 +35,6 @@ article {
 
 .primary-btn {
 	width: 120px;
-	margin-top: 1rem;
 }
 
 .group-btn {
@@ -91,6 +90,13 @@ footer a:hover {
 
 .modal-create .group-btn {
 	justify-content: space-between;
+}
+
+.footer-note {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 1rem;
 }
 
 textarea {

@@ -28,4 +28,6 @@ if (isset($_GET['js'])) {
     }
 }
 
+define('ACCESS_ALLOWED', true);
+include "../server/db/db.php";
 include "../server/protected/home.php";
