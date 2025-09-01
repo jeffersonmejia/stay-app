@@ -1,4 +1,5 @@
 <?php
+
 if (isset($_POST['delete_note_id'])) {
     $note_id = $_POST['delete_note_id'];
     $user_id = $_SESSION['user_id'];
@@ -16,6 +17,7 @@ if (isset($_POST['delete_note_id'])) {
     exit;
 }
 $ftp_error = "";
+$log_msg = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['title'] ?? '';
     $description = $_POST['description'] ?? '';
@@ -29,13 +31,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ':user_id' => $user_id
         ]);
         $note_id = $conn->lastInsertId();
+
         if (!empty($_FILES['attachment']['name'])) {
+
             $ftp_server = "ftp";
             $ftp_user   = "user";
             $ftp_pass   = "pass";
 
             $conn_id = ftp_connect($ftp_server);
             if (!$conn_id) {
+
                 $ftp_error = "No se pudo conectar al servidor FTP";
             } elseif (!ftp_login($conn_id, $ftp_user, $ftp_pass)) {
                 $ftp_error = "Error de autenticación FTP";
@@ -46,8 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $extension = pathinfo($_FILES['attachment']['name'], PATHINFO_EXTENSION);
                 $tmp_file  = $_FILES['attachment']['tmp_name'];
 
-                $remote_dir = "/$user_id";
-                // Crear directorio del usuario si no existe
+                $remote_dir = "/home/user/$user_id";
                 if (!@ftp_chdir($conn_id, $remote_dir)) {
                     if (!ftp_mkdir($conn_id, $remote_dir)) {
                         $ftp_error = "No se pudo crear el directorio en FTP";
@@ -65,6 +69,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 ftp_close($conn_id);
             }
+            if (!empty($ftp_error)) {
+                $log_msg = "[LOG FTP] Error detectado:\n";
+                $log_msg .= "Usuario: $ftp_user\n";
+                $log_msg .= "Directorio remoto: $remote_dir\n";
+                $log_msg .= "Archivo: $remote_file\n";
+                $log_msg .= "Mensaje: $ftp_error\n";
+
+                error_log($log_msg);
+            }
+            error_log('[LOG FTP] ' . $log_msg);
         }
         header("Location: home.php");
         exit;
