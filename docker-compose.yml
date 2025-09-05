@@ -10,7 +10,7 @@ services:
     depends_on:
       db:
         condition: service_healthy
-      ftp:
+      sftp:
         condition: service_healthy
 
   db:
@@ -23,26 +23,20 @@ services:
     ports:
       - '3306:3306'
     healthcheck:
-      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
+      test: ['CMD-SHELL', 'mysqladmin ping -h localhost -uroot -proot || exit 1']
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 10
 
-  ftp:
-    image: fauria/vsftpd
+  sftp:
+    build: ./sftp
     ports:
-      - '21:21'
-      - '21000-21010:21000-21010'
-    environment:
-      FTP_USER: user
-      FTP_PASS: pass
-      PASV_ADDRESS: ftp
-      PASV_MIN_PORT: 21000
-      PASV_MAX_PORT: 21010
+      - '22:22'
     volumes:
-      - ./ftp:/home/user
+      - ./ftp:/home/user/upload
+    command: 'user:pass:1001'
     healthcheck:
-      test: ['CMD', 'curl', '-f', '-u', 'user:pass', 'ftp://localhost/']
+      test: ['CMD-SHELL', 'nc -z localhost 22']
       interval: 10s
       timeout: 5s
       retries: 5

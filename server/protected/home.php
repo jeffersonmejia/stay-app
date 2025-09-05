@@ -34,52 +34,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (!empty($_FILES['attachment']['name'])) {
 
-            $ftp_server = "ftp";
-            $ftp_user   = "user";
-            $ftp_pass   = "pass";
+            $sftp_server = "sftp"; // nombre del servicio SFTP en docker-compose
+            $sftp_user   = "user";
+            $sftp_pass   = "pass";
 
-            $conn_id = ftp_connect($ftp_server);
-            if (!$conn_id) {
+            $extension = pathinfo($_FILES['attachment']['name'], PATHINFO_EXTENSION);
+            $tmp_file  = $_FILES['attachment']['tmp_name'];
 
-                $ftp_error = "No se pudo conectar al servidor FTP";
-            } elseif (!ftp_login($conn_id, $ftp_user, $ftp_pass)) {
-                $ftp_error = "Error de autenticación FTP";
-                ftp_close($conn_id);
+            // Conexión SSH y SFTP
+            $connection = ssh2_connect($sftp_server, 22);
+            if (!$connection) {
+                $ftp_error = "No se pudo conectar al servidor SFTP";
+            } elseif (!ssh2_auth_password($connection, $sftp_user, $sftp_pass)) {
+                $ftp_error = "Error de autenticación SFTP";
             } else {
-                ftp_pasv($conn_id, true);
+                $sftp = ssh2_sftp($connection);
 
-                $extension = pathinfo($_FILES['attachment']['name'], PATHINFO_EXTENSION);
-                $tmp_file  = $_FILES['attachment']['tmp_name'];
-
-                $remote_dir = "/home/user/$user_id";
-                if (!@ftp_chdir($conn_id, $remote_dir)) {
-                    if (!ftp_mkdir($conn_id, $remote_dir)) {
-                        $ftp_error = "No se pudo crear el directorio en FTP";
-                    } else {
-                        ftp_chdir($conn_id, $remote_dir);
-                    }
-                } else {
-                    ftp_chdir($conn_id, $remote_dir);
+                // Carpeta del usuario
+                $remote_user_dir = "/home/user/upload/$user_id";
+                if (!file_exists("ssh2.sftp://$sftp$remote_user_dir")) {
+                    mkdir("ssh2.sftp://$sftp$remote_user_dir", 0777, true);
                 }
 
-                $remote_file = "{$note_id}.$extension";
-                if (!ftp_put($conn_id, $remote_file, $tmp_file, FTP_BINARY)) {
-                    $ftp_error = "Error al subir el archivo al FTP";
+                // Carpeta de la nota
+                $remote_note_dir = "$remote_user_dir/$note_id";
+                if (!file_exists("ssh2.sftp://$sftp$remote_note_dir")) {
+                    mkdir("ssh2.sftp://$sftp$remote_note_dir", 0777, true);
                 }
 
-                ftp_close($conn_id);
+                // Subir archivo
+                $remote_file = "$remote_note_dir/{$note_id}.$extension";
+                if (!file_put_contents("ssh2.sftp://$sftp$remote_file", file_get_contents($tmp_file))) {
+                    $ftp_error = "Error al subir el archivo al SFTP";
+                }
             }
-            if (!empty($ftp_error)) {
-                $log_msg = "[LOG FTP] Error detectado:\n";
-                $log_msg .= "Usuario: $ftp_user\n";
-                $log_msg .= "Directorio remoto: $remote_dir\n";
-                $log_msg .= "Archivo: $remote_file\n";
-                $log_msg .= "Mensaje: $ftp_error\n";
 
+            if (!empty($ftp_error)) {
+                $log_msg = "[LOG SFTP] Error detectado:\n";
+                $log_msg .= "Usuario: $sftp_user\n";
+                $log_msg .= "Directorio remoto: $remote_note_dir\n";
+                $log_msg .= "Archivo: {$note_id}.$extension\n";
+                $log_msg .= "Mensaje: $ftp_error\n";
                 error_log($log_msg);
             }
-            error_log('[LOG FTP] ' . $log_msg);
         }
+
+
         header("Location: home.php");
         exit;
     }

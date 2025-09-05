@@ -1,24 +1,22 @@
-#IMAGE PHP + APACHE
 FROM php:8.2-apache
 
-# INSTALL EXTENSIONS
-RUN docker-php-ext-install mysqli pdo pdo_mysql ftp
+RUN apt-get update && apt-get install -y \
+    libssh2-1-dev \
+    libssh2-1 \
+    libssl-dev \
+    unzip \
+    && pecl install ssh2-1.4.2 \
+    && docker-php-ext-enable ssh2 \
+    && docker-php-ext-install mysqli pdo pdo_mysql ftp \
+    && a2enmod rewrite \
+    && sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
 
-#COPY FILES AND DIRECTORIES
+
 COPY ./public/ /var/www/html/
 COPY ./server/ /var/www/html/server/
 
-# SETUP PERMISSIONS
 RUN chown -R www-data:www-data /var/www/html
 
-# ENABLE REWRITE
-RUN a2enmod rewrite
-
-# ALLOW .HTACCESS OVERRIDE
-RUN sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
-
-# PORT SERVER EXPOSE
 EXPOSE 80
 
-#START APACHE SV
 CMD ["apache2-foreground"]

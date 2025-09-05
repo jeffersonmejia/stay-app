@@ -1,3 +1,6 @@
+$startTime = Get-Date
+cls
+
 $envFile = Join-Path $PSScriptRoot "../../.env.docker"
 Write-Host "`n[ENVIRONMENT]" -ForegroundColor Yellow " Loading .env.docker..."
 Get-Content $envFile | ForEach-Object {
@@ -16,6 +19,7 @@ if ($dockerProcs) {
 } else {
     Write-Host "`n[DOCKER]" -ForegroundColor Blue " Docker processes already stopped"
 }
+
 Write-Host "[DOCKER]" -ForegroundColor Blue " Starting WSL and Docker Desktop..."
 Start-Process "wsl.exe" -ArgumentList "-d $WSL_DISTRO", "tail -f /dev/null" -WindowStyle Hidden
 Start-Process $DOCKER_DESKTOP -WindowStyle Hidden
@@ -29,16 +33,41 @@ Write-Host "[DOCKER]" -ForegroundColor Blue " Docker is ready (version $dockerVe
 Write-Host "[DOCKER]" -ForegroundColor Blue " Starting services with Docker Compose..."
 Start-Process -FilePath "docker" -ArgumentList "compose up -d" -NoNewWindow -Wait
 
-$chromeProcs = Get-Process "chrome" -ErrorAction SilentlyContinue
-$chromePath = "C:\Program Files\Google\Chrome\Application\chrome.exe"
-Write-Host "`n[BROWSER]" -ForegroundColor Yellow " Opening Chrome..."
-if ($chromeProcs) {
-    & $chromePath "--new-tab http://localhost:8080"
+$timeout = 5
+$interval = 1
+$elapsed = 0
+
+Write-Host "[SERVICE]" -ForegroundColor Yellow " Waiting for localhost:8080..."
+do {
+    $up = Test-NetConnection -ComputerName "localhost" -Port 8080
+    $remaining = $timeout - $elapsed
+    Write-Host "`r[SERVICE] Time remaining: $remaining s" -NoNewline
+    Start-Sleep -Seconds $interval
+    $elapsed += $interval
+} while (-not $up.TcpTestSucceeded -and $elapsed -le $timeout)
+
+Write-Host ""
+if ($up.TcpTestSucceeded) {
+    $chromeProcs = Get-Process "chrome" -ErrorAction SilentlyContinue
+    $chromePath = "C:\Program Files\Google\Chrome\Application\chrome.exe"
+    Write-Host "`n[BROWSER]" -ForegroundColor Yellow " Opening Chrome..."
+    if ($chromeProcs) {
+        & $chromePath "--new-tab http://localhost:8080"
+    } else {
+        & $chromePath "http://localhost:8080"
+    }
+
+    Write-Host "`n[IDE]" -ForegroundColor Yellow " Opening VS Code..."
+    code .
+    Write-Host "[SERVICE]" -ForegroundColor Green " localhost:8080 is ready!"
 } else {
-    & $chromePath "http://localhost:8080"
+    Write-Host "[SERVICE]" -ForegroundColor Red " localhost:8080 did not respond after $timeout s."
+}
+$totalTime = (Get-Date) - $startTime
+if ($totalTime.TotalSeconds -ge 60) {
+    $timeOutput = "{0:N2} min" -f ($totalTime.TotalSeconds / 60)
+} else {
+    $timeOutput = "{0:N2} s" -f $totalTime.TotalSeconds
 }
 
-Write-Host "`n[IDE]" -ForegroundColor Yellow " Opening VS Code..."
-code .
-
-Write-Host "`n[FINISHED]" -ForegroundColor Green " All tasks completed"
+Write-Host "[FINISHED] All tasks completed. RTO: $timeOutput." -ForegroundColor Green
