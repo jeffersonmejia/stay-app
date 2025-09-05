@@ -12,10 +12,10 @@ $dockerProcs = Get-Process *docker* -ErrorAction SilentlyContinue
 if ($dockerProcs) {
     $dockerProcs | Stop-Process -Force
     Write-Host "`n[DOCKER]" -ForegroundColor Blue " Docker processes stopped"
+    wsl --shutdown
 } else {
     Write-Host "`n[DOCKER]" -ForegroundColor Blue " Docker processes already stopped"
 }
-
 Write-Host "[DOCKER]" -ForegroundColor Blue " Starting WSL and Docker Desktop..."
 Start-Process "wsl.exe" -ArgumentList "-d $WSL_DISTRO", "tail -f /dev/null" -WindowStyle Hidden
 Start-Process $DOCKER_DESKTOP -WindowStyle Hidden
@@ -28,23 +28,6 @@ Write-Host "[DOCKER]" -ForegroundColor Blue " Docker is ready (version $dockerVe
 
 Write-Host "[DOCKER]" -ForegroundColor Blue " Starting services with Docker Compose..."
 Start-Process -FilePath "docker" -ArgumentList "compose up -d" -NoNewWindow -Wait
-$timeout = 30
-$interval = 1
-$remaining = $timeout
-
-do {
-    $up = Test-NetConnection -ComputerName "localhost" -Port 8080
-    if ($up.TcpTestSucceeded) { break }
-    Write-Host "`r[SERVICE]" -ForegroundColor Yellow " Waiting $remaining s..." -NoNewline
-    Start-Sleep -Seconds $interval
-    $remaining -= $interval
-} while ($remaining -gt 0)
-
-if ($up.TcpTestSucceeded) {
-    Write-Host "`n[SERVICE]" -ForegroundColor Yellow " localhost:8080 is ready"
-} else {
-    Write-Host "`n[SERVICE]" -ForegroundColor Red " localhost:8080 did not respond after $timeout s"
-}
 
 $chromeProcs = Get-Process "chrome" -ErrorAction SilentlyContinue
 $chromePath = "C:\Program Files\Google\Chrome\Application\chrome.exe"
