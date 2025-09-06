@@ -1,4 +1,6 @@
 FROM atmoz/sftp
 USER root
-
 RUN apt-get update && apt-get install -y netcat
+COPY init.sh /init.sh
+RUN chmod +x /init.sh
+ENTRYPOINT ["/init.sh"]

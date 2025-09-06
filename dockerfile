@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     unzip \
     pkg-config \
+    openssh-client \
     && pecl install ssh2 \
     && docker-php-ext-enable ssh2 \
     && docker-php-ext-install mysqli pdo pdo_mysql ftp \
