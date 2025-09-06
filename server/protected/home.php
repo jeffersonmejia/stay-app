@@ -49,29 +49,49 @@ $notes = get_notes($conn, (int)$_SESSION['user_id']);
                     <h2><?= htmlspecialchars($note['title']) ?></h2>
                     <p><?= nl2br(htmlspecialchars($note['description'])) ?></p>
                     <?php
-                    $userDir = __DIR__ . "/ftp/{$note['user_id']}";
-                    $files = glob("$userDir/{$note['id']}.*");
+                    $sftp_server = "stay-app-sftp-1";
+                    $sftp_user   = "user";
+                    $sftp_pass   = "pass";
+
+                    [$sftp, $error] = sftp_connect_server($sftp_server, $sftp_user, $sftp_pass);
+
+                    $remote_user_dir = "/upload/{$note['user_id']}";
+                    $files = [];
+
+                    if ($sftp) {
+                        $sftp_fd = intval($sftp);
+                        $handle = @opendir("ssh2.sftp://$sftp_fd$remote_user_dir");
+                        if ($handle) {
+                            while (($entry = readdir($handle)) !== false) {
+                                if (preg_match("/^{$note['id']}\./", $entry)) {
+                                    $files[] = $entry;
+                                }
+                            }
+                            closedir($handle);
+                        }
+                    }
+
                     if (!empty($files)) {
-                        $filePath = $files[0];
-                        $fileName = basename($filePath);
-                        $fileUrl = "ftp/{$note['user_id']}/$fileName";
+                        $fileName = $files[0];
+                        $fileUrl  = "utils/download.php?user_id={$note['user_id']}&file={$fileName}";
                     }
                     ?>
                     <div class="footer-note">
                         <?php if (!empty($files)): ?>
-                            <a href="<?= htmlspecialchars($fileUrl) ?>" class="primary-btn" download>Ver adjunto</a>
+                            <a href="utils/download.php?user_id=<?= $note['user_id'] ?>&file=<?= urlencode($fileName) ?>" class="primary-btn" download>Descargar adjunto</a>
+
                         <?php else: ?>
                             <span class="primary-btn disabled">Sin adjunto</span>
                         <?php endif; ?>
-                        <form action="home.php" method="POST"
-                            style="display:inline">
+                        <form action="home.php" method="POST" style="display:inline">
                             <input type="hidden" name="delete_note_id" value="<?= $note['id'] ?>">
-                            <button type="submit" class="cancel-btn">Eliminar</button>
+                            <button type="submit" class="cancel-btn">Delete</button>
                         </form>
                     </div>
                 </article>
             <?php endforeach; ?>
         </section>
+
     </main>
     <div class="modal-create hidden">
         <form action="home.php" method="POST" enctype="multipart/form-data">

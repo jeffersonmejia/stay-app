@@ -28,6 +28,12 @@ if (isset($_GET['js'])) {
     }
 }
 
+
+if (isset($_GET['user_id'], $_GET['file'])) {
+    require_once __DIR__ . '/../server/protected/utils/download.php';
+    exit;
+}
+
 define('ACCESS_ALLOWED', true);
 include "../server/db/db.php";
 include "../server/protected/home.php";
