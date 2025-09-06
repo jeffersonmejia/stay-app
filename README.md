@@ -6,11 +6,11 @@ Stay App es una aplicación web sencilla para crear, leer, actualizar y eliminar
 
 ## 1. Preview
 
-![Vista previa](https://i.ibb.co/zVL5GfMx/Facebook-cover-Restaurante-Elegante-Minimal-Verde-removebg-preview-1.png)
+![Preview img](https://i.ibb.co/zVL5GfMx/Facebook-cover-Restaurante-Elegante-Minimal-Verde-removebg-preview-1.png)
 
-![Vista previa](https://i.ibb.co/0yP58yJR/signin.png)
+![Preview img](https://i.ibb.co/QvP39BcN/signin.png)
 
-![Vista previa](https://i.ibb.co/60LC8f1Z/home.png)
+![Preview img](https://i.ibb.co/bMhgjgkW/home.png)
 
 ## 2. Requisitos funcionales
 
