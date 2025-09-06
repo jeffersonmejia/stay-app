@@ -29,14 +29,26 @@ Stay App es una aplicación web sencilla para crear, leer, actualizar y eliminar
 
 ![Vista previa de Stay App](https://i.ibb.co/m59f42Nz/Sin-t-tulo-2025-08-20-1334.png)
 
-## 5. Arquitectura de la base de datos
+## 5. Contenedores
+
+Servicios que componen la aplicación, las imágenes asociadas y los puertos expuestos para acceso desde el host.
+
+| Nombre          | Imagen        | Puerto (Host → Contenedor) |
+| --------------- | ------------- | -------------------------- |
+| stay-app-web-1  | stay-app-web  | 8080 → 80                  |
+| stay-app-sftp-1 | stay-app-sftp | 22 → 22                    |
+| stay-app-db-1   | mysql:8.0     | 3306 → 3306                |
+
+**RTO sugerido**: 5min.
+
+## 6. Arquitectura de la base de datos
 
 - Nombre: `stay_app`
 - Tablas:
   - `users` (id, email, password)
   - `notes` (id, title, description, user_id)
 
-## 6. Bitácora de actividades
+## 7. Bitácora de actividades
 
 _Fecha de inicio_: 2025-08-20
 
@@ -56,18 +68,6 @@ _Tiempo esperado de finalización_: 8 días
 | 8   | Backend              | Implementación de _ingreso_ usuarios /signin.php       | 2025-08-24 |
 | 9   | Backend              | Implementación de _Crear_, _Leer_, _Eliminar_ de notas | 2025-08-25 |
 | 10  | Testing              | _Pruebas_ locales y ajustes de seguridad               | 2025-08-26 |
-
-## 7. Contenedores
-
-Servicios que componen la aplicación, las imágenes asociadas y los puertos expuestos para acceso desde el host.
-
-| Nombre          | Imagen        | Puerto (Host → Contenedor) |
-| --------------- | ------------- | -------------------------- |
-| stay-app-web-1  | stay-app-web  | 8080 → 80                  |
-| stay-app-sftp-1 | stay-app-sftp | 22 → 22                    |
-| stay-app-db-1   | mysql:8.0     | 3306 → 3306                |
-
-**RTO sugerido**: 5min.
 
 ## 8. Instalación
 
