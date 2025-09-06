@@ -73,13 +73,12 @@ $notes = get_notes($conn, (int)$_SESSION['user_id']);
 
                     if (!empty($files)) {
                         $fileName = $files[0];
-                        $fileUrl  = "utils/download.php?user_id={$note['user_id']}&file={$fileName}";
+                        $fileUrl = "home.php?user_id={$note['user_id']}&file={$fileName}";
                     }
                     ?>
                     <div class="footer-note">
                         <?php if (!empty($files)): ?>
-                            <a href="utils/download.php?user_id=<?= $note['user_id'] ?>&file=<?= urlencode($fileName) ?>" class="primary-btn" download>Descargar adjunto</a>
-
+                            <a href="<?= htmlspecialchars($fileUrl) ?>" class="primary-btn" download>Ver adjunto</a>
                         <?php else: ?>
                             <span class="primary-btn disabled">Sin adjunto</span>
                         <?php endif; ?>
