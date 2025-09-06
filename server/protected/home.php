@@ -1,98 +1,26 @@
 <?php
+require_once __DIR__ . '/utils/notes.php';
 
 if (isset($_POST['delete_note_id'])) {
-    $note_id = $_POST['delete_note_id'];
-    $user_id = $_SESSION['user_id'];
-
-    $userDir = __DIR__ . "/ftp/$user_id";
-    $files = glob("$userDir/{$note_id}.*");
-    foreach ($files as $file) {
-        unlink($file);
-    }
-
-    $stmt = $conn->prepare("DELETE FROM notes WHERE id = :id AND user_id = :user_id");
-    $stmt->execute([':id' => $note_id, ':user_id' => $user_id]);
-
+    delete_note($conn, (int)$_POST['delete_note_id'], (int)$_SESSION['user_id']);
     header("Location: home.php");
     exit;
 }
-$ftp_error = "";
-$log_msg = "";
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['title'] ?? '';
     $description = $_POST['description'] ?? '';
-    $user_id = $_SESSION['user_id'];
+    $user_id = (int)$_SESSION['user_id'];
 
     if ($title && $description) {
-        $stmt = $conn->prepare("INSERT INTO notes (title, description, user_id) VALUES (:title, :description, :user_id)");
-        $stmt->execute([
-            ':title' => $title,
-            ':description' => $description,
-            ':user_id' => $user_id
-        ]);
-        $note_id = $conn->lastInsertId();
-
-        if (!empty($_FILES['attachment']['name'])) {
-
-            $sftp_server = "sftp"; // nombre del servicio SFTP en docker-compose
-            $sftp_user   = "user";
-            $sftp_pass   = "pass";
-
-            $extension = pathinfo($_FILES['attachment']['name'], PATHINFO_EXTENSION);
-            $tmp_file  = $_FILES['attachment']['tmp_name'];
-
-            // Conexión SSH y SFTP
-            $connection = ssh2_connect($sftp_server, 22);
-            if (!$connection) {
-                $ftp_error = "No se pudo conectar al servidor SFTP";
-            } elseif (!ssh2_auth_password($connection, $sftp_user, $sftp_pass)) {
-                $ftp_error = "Error de autenticación SFTP";
-            } else {
-                $sftp = ssh2_sftp($connection);
-
-                // Carpeta del usuario
-                $remote_user_dir = "/home/user/upload/$user_id";
-                if (!file_exists("ssh2.sftp://$sftp$remote_user_dir")) {
-                    mkdir("ssh2.sftp://$sftp$remote_user_dir", 0777, true);
-                }
-
-                // Carpeta de la nota
-                $remote_note_dir = "$remote_user_dir/$note_id";
-                if (!file_exists("ssh2.sftp://$sftp$remote_note_dir")) {
-                    mkdir("ssh2.sftp://$sftp$remote_note_dir", 0777, true);
-                }
-
-                // Subir archivo
-                $remote_file = "$remote_note_dir/{$note_id}.$extension";
-                if (!file_put_contents("ssh2.sftp://$sftp$remote_file", file_get_contents($tmp_file))) {
-                    $ftp_error = "Error al subir el archivo al SFTP";
-                }
-            }
-
-            if (!empty($ftp_error)) {
-                $log_msg = "[LOG SFTP] Error detectado:\n";
-                $log_msg .= "Usuario: $sftp_user\n";
-                $log_msg .= "Directorio remoto: $remote_note_dir\n";
-                $log_msg .= "Archivo: {$note_id}.$extension\n";
-                $log_msg .= "Mensaje: $ftp_error\n";
-                error_log($log_msg);
-            }
-        }
-
-
+        create_note($conn, $title, $description, $user_id, $_FILES['attachment']);
         header("Location: home.php");
         exit;
     }
 }
 
-
-
-$notes = [];
-$stmt = $conn->prepare("SELECT * FROM notes WHERE user_id = :user_id ORDER BY id DESC");
-$stmt->execute([':user_id' => $_SESSION['user_id']]);
-$notes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$notes = get_notes($conn, (int)$_SESSION['user_id']);
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -154,9 +82,6 @@ $notes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <label for="">Adjuntar archivo (Máx. 5Mb)</label>
                 <input type="file" name="attachment" id="attach-btn">
             </div>
-            <?php
-            echo "$ftp_error";
-            ?>
             <div class="group-btn">
                 <button class="cancel-btn">Cancelar</button>
                 <button type="submit" class="secondary-btn">Crear nota</button>

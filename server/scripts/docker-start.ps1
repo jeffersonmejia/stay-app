@@ -70,4 +70,4 @@ if ($totalTime.TotalSeconds -ge 60) {
     $timeOutput = "{0:N2} s" -f $totalTime.TotalSeconds
 }
 
-Write-Host "[FINISHED] All tasks completed. RTO: $timeOutput." -ForegroundColor Green
+Write-Host "[FINISHED] All tasks completed. RTA/RTO: $timeOutput/5min." -ForegroundColor Green

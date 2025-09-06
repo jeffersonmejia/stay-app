@@ -5,12 +5,12 @@ RUN apt-get update && apt-get install -y \
     libssh2-1 \
     libssl-dev \
     unzip \
-    && pecl install ssh2-1.4.2 \
+    pkg-config \
+    && pecl install ssh2 \
     && docker-php-ext-enable ssh2 \
     && docker-php-ext-install mysqli pdo pdo_mysql ftp \
     && a2enmod rewrite \
     && sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
-
 
 COPY ./public/ /var/www/html/
 COPY ./server/ /var/www/html/server/

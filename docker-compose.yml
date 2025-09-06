@@ -33,10 +33,13 @@ services:
     ports:
       - '22:22'
     volumes:
-      - ./ftp:/home/user/upload
+      - sftp-data:/home/user/upload
     command: 'user:pass:1001'
     healthcheck:
       test: ['CMD-SHELL', 'nc -z localhost 22']
       interval: 10s
       timeout: 5s
       retries: 5
+
+volumes:
+  sftp-data:
