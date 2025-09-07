@@ -28,7 +28,6 @@ if (isset($_GET['js'])) {
     }
 }
 
-
 if (isset($_GET['user_id'], $_GET['file'])) {
     require_once __DIR__ . '/../server/protected/utils/download.php';
     exit;

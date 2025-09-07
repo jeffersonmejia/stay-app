@@ -21,7 +21,7 @@ if ($dockerProcs) {
 }
 
 Write-Host "[DOCKER]" -ForegroundColor Blue " Starting WSL and Docker Desktop..."
-Start-Process "wsl.exe" -ArgumentList "-d $WSL_DISTRO", "tail -f /dev/null" -WindowStyle Hidden
+Start-Process "wsl.exe" -WindowStyle Hidden
 Start-Process $DOCKER_DESKTOP -WindowStyle Hidden
 
 do {
@@ -41,7 +41,7 @@ Write-Host "[SERVICE]" -ForegroundColor Yellow " Waiting for localhost:8080..."
 do {
     $up = Test-NetConnection -ComputerName "localhost" -Port 8080
     $remaining = $timeout - $elapsed
-    Write-Host "`r[SERVICE] Time remaining: $remaining s" -NoNewline
+    Write-Host "`r[SERVICE] Retrieving in: $remaining s" -NoNewline
     Start-Sleep -Seconds $interval
     $elapsed += $interval
 } while (-not $up.TcpTestSucceeded -and $elapsed -le $timeout)
@@ -57,7 +57,7 @@ if ($up.TcpTestSucceeded) {
         & $chromePath "http://localhost:8080"
     }
 
-    Write-Host "`n[IDE]" -ForegroundColor Yellow " Opening VS Code..."
+    Write-Host "[IDE]" -ForegroundColor Yellow " Opening VS Code..."
     code .
     Write-Host "[SERVICE]" -ForegroundColor Green " localhost:8080 is ready!"
 } else {
@@ -70,4 +70,20 @@ if ($totalTime.TotalSeconds -ge 60) {
     $timeOutput = "{0:N2} s" -f $totalTime.TotalSeconds
 }
 
-Write-Host "[FINISHED] All tasks completed. RTA/RTO: $timeOutput/5min." -ForegroundColor Green
+$rto = 300  
+
+$totalTime = (Get-Date) - $startTime
+if ($totalTime.TotalSeconds -ge 60) {
+    $timeOutput = "{0:N2} min" -f ($totalTime.TotalSeconds / 60)
+} else {
+    $timeOutput = "{0:N2} s" -f $totalTime.TotalSeconds
+}
+
+$ratio = $totalTime.TotalSeconds / $rto
+if ($ratio -gt 1) { $ratio = 1 }
+
+if ($totalTime.TotalSeconds -gt $rto) {
+    Write-Host "[FINISHED] All tasks completed. RTA/RTO: $timeOutput/5min ($("{0:N2}" -f $ratio))." -ForegroundColor Red
+} else {
+    Write-Host "[FINISHED] All tasks completed. RTA/RTO: $timeOutput/5min ($("{0:N2}" -f $ratio))." -ForegroundColor Green
+}
